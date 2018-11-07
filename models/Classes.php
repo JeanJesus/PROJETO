@@ -379,17 +379,25 @@ class Usuario{
         $this->senha = $senha;
     }
 
-    public function inser(){
-        $sql = "INSERT INTO $this->table (email,senha,primeiro_nome,ultimo_nome) "
-                . "VALUES(:email,:senha,:primeiro_nome,:ultimo_nome);";
-        $stmt = conexao::prepare($sql);
-        $stmt->bindParam(':email',  $this->email);
-        $stmt->bindParam(':senha',  $this->senha);
-        $stmt->bindParam(':primeiro_nome',  $this->primeiro_nome);
-        $stmt->bindParam(':ultimo_nome',  $this->segundo_nome);
-        return $stmt->execute();
+    public function inserUser($user){
+        $conn = getConection();
+      
+          $sql = "INSERT INTO login(email,senha,primeiro_nome,ultimo_nome) VALUES(?,?,?,?)";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(1, $this->email);        
+        $stmt->bindValue(2, $this->senha);
+        $stmt->bindValue(3, $this->primeiro_nome);
+        $stmt->bindValue(4, $this->segundo_nome); 
+        if ($stmt->execute()) {
+            echo "<script>alert('INSERÇÃO EFETUADA');</script>"; 
+        }else{
+            echo "<script>alert('ERRO!');</script>"; 
         }
+        
+        header('Location: ../View/inicial.php?item=registro_user');
+          
     
-    
+    }
     
 }
