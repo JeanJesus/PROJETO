@@ -1,5 +1,5 @@
 <?php
-  $conn = pg_connect("host=localhost dbname=advocacia user=jean password=dyjesus0129 port=5432");
+  $conn = pg_connect("host=localhost dbname=advocacia user=jean password=senhadobanco port=5432");
 
   if(isset($conn)){
     echo"<script>alert('Houve conexao!'); </script>";
